@@ -1,2 +1,3 @@
 const ws = require('./ws/ws');
-module.exports = { ws }
+const weather = require('./weather');
+module.exports = { ws, weather }

@@ -5,17 +5,17 @@ const cors = require('cors');
 const http = require('http').Server(app);
 
 const { options } = require('./src/middlewares')
-const services = require('./src/services');
-const { ws } = require('./src/routes');
-const { collector } = require('./src/utils');
 const { initWebSocket } = require('./src/routes/ws/ws');
+const { rocketService } = require('./src/services');
+const { eventHandler, collector } = require('./src/utils');
 
 
 const host = process.env.HOST
 const port = process.env.PORT
 
 const io = require('socket.io')(http, {
-  path: '/ws'
+  path: '/ws',
+  transports: ['websocket'],
 });
 
 app.use(express.json())
@@ -25,9 +25,11 @@ initWebSocket(io)
 
 app.use(options)
 
+// app.use(routes)
+
 http.listen(port, host, () => {
   console.log(`Server running at http://${host}:${port}/`);
-  console.debug('Starting collector')
+  console.log("Initializing collector...")
   collector.Initiazlize()
 });
 

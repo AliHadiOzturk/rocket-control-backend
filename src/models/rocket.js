@@ -2,6 +2,7 @@ const { Payload, Telemetry, TimeStamps } = require(".")
 const enums = require("./enums")
 const decode = require("../utils/decoders/decoder")
 const Entity = require("./base")
+const { crc16 } = require("easy-crc")
 
 
 const packet = [
@@ -52,6 +53,12 @@ class Rocket extends Entity {
     decodeFromBytes = (buffer) => {
         for (let p of packet) {
             const val = decode(buffer, p)
+            if (p.name === 'CRC16') {
+                const sliced = buffer.slice(0, buffer.length - 3)
+                const crc = crc16('BUYPASS', sliced)
+                if (crc !== val)
+                    return null
+            }
             if (p.prop) {
                 this[p.prop] = val
             }

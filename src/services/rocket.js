@@ -1,11 +1,13 @@
-const http = require("../utils/http")
 const base = require("./base")
 path = "rockets"
 
 const rockets = () => {
     return new Promise((resolve, reject) => {
         base.get(path).then(response => {
-            resolve(response.data)
+            if (response && response.data)
+                resolve(response.data)
+            else
+                reject()
         })
     })
 }

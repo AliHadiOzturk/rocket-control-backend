@@ -1,4 +1,4 @@
-const { http } = require("../utils")
+const http = require("../utils/http")
 
 
 function retry(fn) {
@@ -7,7 +7,7 @@ function retry(fn) {
         .catch(() => fn()) // returns yet a new promise (promise#3)
         .catch(() => {
             // reject with the max retry error
-            throw new Error('Failed retrying 3 times');
+            console.log("3 times tried and failed")
         });
 }
 
@@ -24,4 +24,4 @@ const del = (endpoint) => {
     return retry(() => http.del(endpoint))
 }
 
-module.exports = { get, post, put, del}
+module.exports = { get, post, put, del }
