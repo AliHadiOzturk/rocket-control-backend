@@ -30,7 +30,7 @@ const Initiazlize = () => {
         for (const rocket of res) {
             connector.createConnection(rocket.telemetry?.host, rocket.telemetry?.port, rocket.id, rocket.model, enums.connectionTypes.ROCKET, receivedCallBack, statusCallBack)
         }
-    })
+    }).catch(err => { Initiazlize() })
 }
 
 module.exports = { Initiazlize }

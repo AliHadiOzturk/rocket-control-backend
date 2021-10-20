@@ -6,8 +6,6 @@ function retry(fn) {
         .catch(() => fn()) // returns a new promise (promise#2)
         .catch(() => fn()) // returns yet a new promise (promise#3)
         .catch(() => {
-            // reject with the max retry error
-            console.log("3 times tried and failed")
         });
 }
 
