@@ -1,4 +1,4 @@
-# Miltron Rocket Controller Frontend
+# Miltron Rocket Controller Backend
 
 Backend project for an rocket launch station. This backend project getting rocket data from provided [backend service] and creating a TCP connection to the rockets. Then publishing data coming from tcp connections with `Web Socket` to the clients.
 ## Running Project
